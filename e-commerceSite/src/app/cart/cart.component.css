@@ -1,0 +1,24 @@
+.quantity-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity-controls button {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .quantity-controls span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+  

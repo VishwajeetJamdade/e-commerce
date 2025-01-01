@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h2>WelCome To My E-Store</h2>
+    </div>
+        <button class="btn btn-primary cart-btn" (click)="goToCart()">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>  Cart ({{ cartCount }})
+          </button>
+   
+ 
+
+  <div class="row product-grid">
+    <div *ngFor="let product of products" class="col-md-4 mb-4">
+      <div class="card">
+        <img class="card-img-top" [src]="product.image" alt="Product image">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="card-text"><strong>{{ product.price | currency: 'INR' }}</strong></p>
+          <button class="btn btn-success" (click)="addToCart(product)"><i class="fa fa-cart-plus" aria-hidden="true"></i>
+            Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center mt-4">
+    <p>Loading more products...</p>
+  </div>
+  <div *ngIf="!loading && products.length > 0" class="load-more-message text-center mt-4">
+    <p>loading more products...</p>
+  </div>
+</div>

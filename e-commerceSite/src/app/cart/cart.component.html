@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between">
+
+        <h2>Your Cart</h2>
+        <button class="btn btn-success" routerLink="">Back to Home</button>
+    </div>
+  
+    <div *ngFor="let item of cartItems" class="card mb-3 mt-2" >
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img [src]="item.image" class="img-fluid rounded-start" alt="{{ item.title }}">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">{{ item.description }}</p>
+            <p class="card-text"><strong>{{ item.price | currency: 'INR' }}</strong></p>
+            <div class="quantity-controls">
+              <button class="btn btn-secondary" (click)="decrementQuantity(item.id)">-</button>
+              <span class="mx-2">{{ item.quantity }}</span>
+              <button class="btn btn-secondary" (click)="incrementQuantity(item.id)">+</button>
+            </div>
+            <button class="btn btn-danger mt-2" (click)="removeFromCart(item.id)">Remove from Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="text-end mt-4">
+      <h4>Total: {{ totalValue | currency: 'INR' }}</h4>
+    </div>
+  </div>
+  
