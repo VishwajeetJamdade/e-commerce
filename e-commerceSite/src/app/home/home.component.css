@@ -34,6 +34,11 @@
   color: #007bff;
   cursor: pointer;
 }
+.cartCount{
+  background-color: red;
+  padding: 1px 5px 1px 6px;
+  border-radius: 33%;
+}
 
 /* Make layout responsive */
 @media (max-width: 768px) {

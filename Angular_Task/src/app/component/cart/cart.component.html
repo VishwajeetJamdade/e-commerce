@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="card-table">
+    <div class="cart-product">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>Sr.No</th>
+            <th>Product Name</th>
+            <th>Product Image</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="cartlist.length === 0">
+            <td colspan="8" style="color: red;" class="text-center">No Product Added</td>
+            <!-- <td colspan="8" class="text-center">
+                      
+                    </td> -->
+          </tr>
+          <ng-container *ngIf="cartlist.length != 0">
+            <tr *ngFor="let item of cartlist; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.title}}</td>
+              <td><img style="width: 120px;" src="{{item.img}}"></td>
+              <td>{{item.description}}</td>
+              <td>{{item.price}}</td>
+              <td>
+                <button class="btn btn-secondary" (click)="decreaseQuantity(item)">-</button>
+                {{item.quantity}}
+                <button class="btn btn-secondary" (click)="increaseQuantity(item)">+</button>
+              </td>
+              <td>{{item.total}}</td>
+              <td>
+                <button class="btn btn-danger" (click)="removeItem(item)">
+                  <i style="color:white" class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+          <tr>
+            <td colspan="5"></td>
+            <td colspan="2"><strong>Grand Total : ₹{{grandTotal}}</strong></td>
+            <td>
+              <button routerLink="/products" class="btn btn-primary text-center">Shop Now</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class CartService {
   private cartSource = new BehaviorSubject<any[]>([]);
   cart$ = this.cartSource.asObservable();
+
+  private cartCountSource = new BehaviorSubject<number>(0);
+cartCount$ = this.cartCountSource.asObservable();
+
   
   private apiUrl = 'http://localhost:3000/products'; 
 
@@ -23,12 +27,17 @@ export class CartService {
       currentCart.push({ ...product, quantity: 1 });
     }
 
-    this.cartSource.next(currentCart);
+    // this.cartSource.next(currentCart);
+    this.cartSource.next([...currentCart]);
+
+    this.updateCartCount();
+
   }
 
   removeFromCart(productId: number) {
     const updatedCart = this.cartSource.value.filter(product => product.id !== productId);
     this.cartSource.next(updatedCart);
+    this.updateCartCount();
   }
 
   incrementQuantity(productId: number) {
@@ -38,6 +47,7 @@ export class CartService {
     if (product) {
       product.quantity += 1;
       this.cartSource.next([...currentCart]);
+      this.updateCartCount()
     }
   }
 
@@ -48,8 +58,10 @@ export class CartService {
     if (product && product.quantity > 1) {
       product.quantity -= 1;
       this.cartSource.next([...currentCart]);
+      this.updateCartCount();
     } else if (product && product.quantity === 1) {
-      this.removeFromCart(productId); 
+      confirm("Are You sure You want to delete The product please Use Remove Cart Button")
+      // this.removeFromCart(productId); 
     }
   }
 
@@ -59,5 +71,13 @@ export class CartService {
 
   getProducts(limit: number, start: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}?_limit=${limit}&_start=${start}`);
+  }
+
+  private updateCartCount() {
+    // Calculate the total number of products in the cart
+    const totalCount = this.cartSource.value.reduce((sum, item) => sum + item.quantity, 0);
+  
+    // Emit the updated cart count (you'll need a new BehaviorSubject for this)
+    this.cartCountSource.next(totalCount);
   }
 }
